@@ -10,9 +10,11 @@ import AVFoundation
 final class VideoCompositionFactory {
     private let composition: AVComposition
     let videoComposition = AVMutableVideoComposition()
+    let trackOutlines: [TrackOutline]
 
-    init(composition: AVComposition) {
+    init(composition: AVComposition, trackOutlines: [TrackOutline]) {
         self.composition = composition
+        self.trackOutlines = trackOutlines
         self.build()
     }
 
@@ -21,7 +23,7 @@ final class VideoCompositionFactory {
         videoComposition.frameDuration = CMTime(value: 1, timescale: 30)
         videoComposition.renderSize = composition.naturalSize
 
-        let instructionFactory = InstructionsFactory(composition: composition)
+        let instructionFactory = InstructionsFactory(composition: composition, trackOutlines: trackOutlines)
         videoComposition.instructions = instructionFactory.instructions
     }
 }

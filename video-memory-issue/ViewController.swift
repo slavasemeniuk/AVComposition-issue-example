@@ -12,8 +12,9 @@ import Combine
 
 class ViewController: UIViewController {
 
-    private lazy var asset = VideoFactory().composition
-    private lazy var videoComposition = VideoCompositionFactory(composition: asset).videoComposition
+    private lazy var factory = VideoFactory()
+    private lazy var asset = factory.composition
+    private lazy var videoComposition = VideoCompositionFactory(composition: asset, trackOutlines: factory.trackOutlines).videoComposition
     private lazy var playerController = children.compactMap { $0 as? AVPlayerViewController }.first!
     private var bag: Set<AnyCancellable> = []
 
