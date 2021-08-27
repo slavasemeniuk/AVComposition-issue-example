@@ -16,6 +16,7 @@ final class CustomCompositor: NSObject, AVVideoCompositing {
 
     /// Set if all pending requests have been cancelled.
     private var shouldCancelAllRequests = false
+    private var cachedPixelBuffer: CVPixelBuffer?
 
     let requiredPixelBufferAttributesForRenderContext: [String: Any] =
         [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]
@@ -43,12 +44,15 @@ final class CustomCompositor: NSObject, AVVideoCompositing {
             request.finish(with: Error.cantFindInstruction)
             return
         }
-
+        if let cachedPixelBuffer = cachedPixelBuffer {
+            request.finish(withComposedVideoFrame: cachedPixelBuffer)
+            return
+        }
         guard let pixelBuffer = request.renderContext.newPixelBuffer() else {
             request.finish(with: Error.cannotGenerateOutputPixelBuffer)
             return
         }
-
+        cachedPixelBuffer = pixelBuffer
         request.finish(withComposedVideoFrame: pixelBuffer)
     }
 
