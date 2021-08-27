@@ -18,6 +18,11 @@ class ViewController: UIViewController {
     private lazy var playerController = children.compactMap { $0 as? AVPlayerViewController }.first!
     private var bag: Set<AnyCancellable> = []
 
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        print(#function)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         let item = AVPlayerItem(asset: asset)
