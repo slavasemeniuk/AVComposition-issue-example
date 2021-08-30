@@ -22,9 +22,9 @@ final class VideoFactory {
         composition.naturalSize = CGSize(width: 720, height: 1_280)
 
         // MARK: Doesn't work as well
-//        let timeMappings = Self.testTimeMappings1
+        let timeMappings = Self.testTimeMappings1
 
-        let timeMappings = Self.testTimeMappings2
+//        let timeMappings = Self.testTimeMappings2
         timeMappings.forEach(insert(timeMapping:))
     }
 
