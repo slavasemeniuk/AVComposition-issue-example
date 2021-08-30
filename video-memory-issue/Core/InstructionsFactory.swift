@@ -31,10 +31,12 @@ final class InstructionsFactory {
         instructions = (0..<uniqueTimePoints.count - 1).map { index in
             makeSceneInstruction(for: CMTimeRange(start: uniqueTimePoints[index], end: uniqueTimePoints[index + 1]))
         }
+        
+        print("Video Composition")
         instructions.forEach {
             print("\($0.timeRange.start.seconds) - \($0.timeRange.end.seconds)")
             print($0.requiredSourceTrackIDs ?? [])
-            print("")
+            print("------------")
         }
     }
 
